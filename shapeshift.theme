@@ -35,7 +35,7 @@ function async_git_position_with_fetch() {
     async_git_position
 }
 
-SHAPESHIFT_PROMPT_LEFT_ELEMENTS=(pure_dir on_branch async_git_position_with_fetch last_command_elapsed_seconds newline_prompt_arrow)
+SHAPESHIFT_PROMPT_LEFT_ELEMENTS=(pure_dir on_branch async_git_position_with_fetch last_command_elapsed_time newline_prompt_arrow)
 SHAPESHIFT_PROMPT_RIGHT_ELEMENTS=()
 SHAPESHIFT_GIT_AHEAD="⇡"
 SHAPESHIFT_GIT_BEHIND="⇣"
