@@ -3,7 +3,7 @@ function pure_dir() {
 }
 
 function on_branch() {
-    if [[ -z "$(async_git_branch)" ]]
+    if [[ -z "$(git_branch)" ]]
     then
         return
     fi
@@ -25,14 +25,14 @@ function newline_prompt_arrow() {
     prompt_arrow
 }
 
-function async_git_position_with_fetch() {
-    if [[ -z "$(async_git_branch)" ]]
+function git_position_with_fetch() {
+    if [[ -z "$(git_branch)" ]]
     then
         return
     fi
 
     git fetch &>/dev/null
-    async_git_position
+    git_position
 }
 
 SHAPESHIFT_PROMPT_LEFT_ELEMENTS=(pure_dir on_branch async_git_position_with_fetch last_command_elapsed_time newline_prompt_arrow)
