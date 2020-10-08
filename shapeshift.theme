@@ -3,21 +3,13 @@ function pure_dir() {
 }
 
 function on_branch() {
-    if [[ -z "$(git_branch)" ]]
-    then
-        return
-    fi
+    $SHAPESHIFT_IS_GIT_REPO || return 0
 
-    branch=$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)  2> /dev/null
-    if [[ -n $branch ]]; then
-        git_where="${branch/(refs\/heads|tags)\//}"
-    fi
+    git_branch
 
     if [[ $(git status -s) ]]; then
-        git_where="${git_where}*"
+        colorize "*" $SHAPESHIFT_GIT_BRANCH_COLOR $SHAPESHIFT_GIT_BRANCH_BOLD
     fi
-
-    colorize "${git_where}" 240 false
 }
 
 function newline_prompt_arrow() {
@@ -26,10 +18,7 @@ function newline_prompt_arrow() {
 }
 
 function git_position_with_fetch() {
-    if [[ -z "$(git_branch)" ]]
-    then
-        return
-    fi
+    $SHAPESHIFT_IS_GIT_REPO || return 0
 
     git fetch &>/dev/null
     git_position
@@ -44,3 +33,5 @@ SHAPESHIFT_ARROW_OK_CHAR_BOLD=false
 SHAPESHIFT_ARROW_KO_COLOR="red"
 SHAPESHIFT_ARROW_KO_CHAR_BOLD=false
 SHAPESHIFT_LS_COLORS_ENABLED=false
+SHAPESHIFT_GIT_BRANCH_COLOR=240
+SHAPESHIFT_GIT_BRANCH_BOLD=false
